@@ -3,6 +3,7 @@ from itertools import product
 import functools
 import numpy as np
 import pandas as pd
+import smtplib, ssl
 
 
 class Anonymize:
@@ -24,12 +25,26 @@ class Anonymize:
 
     usertuples = list(product(emotions, colors, animals))
     usernames = list(map(combine_str, usertuples))
-    selected_usernames = np.random.choice(y, len(self.email_list), False)
+    selected_usernames = np.random.choice(usernames, len(self.email_list), False)
 
     self.username_dict = dict(zip(self.email_list, selected_usernames))
 
   def email_usernames_out(self):
-    return
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
+    sender_email = "institute4thotleadership@gmail.com"  # Enter your address
+    # receiver_email = "your@gmail.com"  # Enter receiver address
+    password = input("Type your password and press enter: ")
+    message = """\
+    Subject: Hi there
+
+    Your socialism dot py username is... """
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+      server.login(sender_email, password)
+      for receiver_email in self.username_dict:
+        server.sendmail(sender_email, receiver_email, message + self.username_dict[receiver_email])
 
 
 class DemSpirit:
