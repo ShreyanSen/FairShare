@@ -6,19 +6,29 @@ import pandas as pd
 import smtplib, ssl
 
 
-class Anonymize:
+class AnonSpirit:
   """
   Generate anonymous usernames from a set of input emails and send them to people
+
   """
 
-  def __init__(self, email_list):
+  def __init__(self, email_list, total_cost, output_fp='/content/gdrive/MyDrive/happiness_to_pay.csv'):
+    """
+    Pass a list of emails and the total cost. We'll send each friend on the list
+    a unique username and generate a csv with username and happiness to pay, to
+    be filled out as inputs to the DemSpirit.
+    Each friend must have an email. Total frenz = len(email_list).
+    """
     self.email_list = email_list
+    self.avg_cost = total_cost / len(email_list)
+    self.output_fp = output_fp
     self.gen_usernames()
     self.email_usernames_out()
+    self.usernames_to_csv()
 
   def gen_usernames(self):
     colors = ['red', 'blue', 'green', 'orange', 'pink', 'purple', 'yellow', 'black', 'white']
-    emotions = ['happy', 'eager', 'quirky', 'hangry', 'chill', 'lofi', 'redundant', 'nontoxic']
+    emotions = ['happy', 'eager', 'quirky', 'hangry', 'chill', 'lofi', 'redundant', 'nontoxic', 'sporty', 'spicy']
     animals = ['beaver', 'lion', 'kitty', 'guanaco', 'antelope', 'gator', 'crow', 'snek', 'playtpus', 'pikachu']
 
     def combine_str(x): return functools.reduce(lambda a, b: a + '_' + b, x)
@@ -35,16 +45,21 @@ class Anonymize:
     sender_email = "institute4thotleadership@gmail.com"  # Enter your address
     # receiver_email = "your@gmail.com"  # Enter receiver address
     password = input("Type your password and press enter: ")
-    message = """\
-    Subject: Hi there
 
-    Your socialism dot py username is... """
+    SUBJECT = "Sparkle Bronies Unite"
+    TEXT = "Get the mystery link from your friend, find your socialish username, and enter your Happiness to Pay. Your socialish username is... "
+    message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
       server.login(sender_email, password)
       for receiver_email in self.username_dict:
         server.sendmail(sender_email, receiver_email, message + self.username_dict[receiver_email])
+
+  def usernames_to_csv(self):
+    tracking_df = pd.DataFrame(self.username_dict.values(), columns=['socialish_username'])
+    tracking_df['happy_to_pay'] = self.avg_cost
+    tracking_df.to_csv(self.output_fp, index=False)
 
 
 class DemSpirit:
