@@ -33,7 +33,7 @@ class DemDaemon:
   def __init__(self, total_cost, payment_vec):
     """
     total_cost: decimal listing the total cost of the shared expense
-    payment_vec: a vector listing one number per friend, their happiness to pay number which can be at cost, above cost, or below cost
+    payment_vec: a list listing one number per friend, their happiness to pay number which can be at cost, above cost, or below cost
     
     """
     self.total_cost = total_cost
