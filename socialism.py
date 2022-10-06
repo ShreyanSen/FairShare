@@ -1,6 +1,6 @@
 class DemDaemon:
   """
-  This class let's you split costs between your friends according to people's willingness to pay, 
+  This class lets you split costs between your friends according to people's willingness to pay, 
   particularly for friend groups where some friends would like to pay under the average cost 
   while other friends are happy to pay over the average cost. Based on the "happy to pay" number
   the class redistributes from those willing to pay more, to those willing to pay less, according to the
