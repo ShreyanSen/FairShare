@@ -24,7 +24,7 @@ class DemDaemon:
   compared to other surplus friends (the rate on their delta is fixed). 
   
   Likewise, if a friend in need lists a really low number, and the total surplus doesn't cover total need,
-  they'll get more dollars back, because each friend gets a fixed fraction of their delta paid back.
+  they'll get more dollars back than their other friends in need, because each friend gets a fixed fraction of their delta paid back.
   
   Based on this adjustment, no friend in surplus will pay more than their happy to pay number.
   
