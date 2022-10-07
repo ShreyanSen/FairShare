@@ -18,7 +18,7 @@ class DemDaemon:
   If there isn't enough surplus to completely cover, we distribute the surplus proportional to each friend's listed need (the delta
   between c and X/k).
   
-  If there is enough surplus to completely cover, each friend paying surplus will pay and equal fraction of the gap between their c and X/k
+  If there is enough surplus to completely cover, each friend paying surplus will pay an identical fraction of the gap between their c and X/k
   
   This means friends in surplus should not list numbers higher than they're really willing to pay, because their money will get ate disproportionately
   compared to other surplus friends (the rate on their delta is fixed). 
