@@ -4,34 +4,27 @@ from src.fs_calculator import FSCalculator
 def main():
 
 
-    st.title("Simple Calculator")
+    st.title("FairShare Calculator")
+    cost = st.number_input("Enter the total cost:", value=0.0, step=1.0)
+    num_users = st.number_input("Enter the number of people splitting this cost:", value=1, max_value=50)
 
-    # Get user inputs
-    #number1 = st.number_input("Enter the first number:", value=0.0)
-    #number2 = st.number_input("Enter the second number:", value=0.0)
-    #number3 = st.number_input("Enter the third number:", value=0.0)
+    st.write("Your average cost per person is: " + str(cost/num_users))
+    wtp_list = []
+    for i in range(num_users):
+        wtp = st.number_input("Enter the maximum amount that person number " + str(i+1) + " is willing to pay", value=0.0, step=1.0, key=i)
+        wtp_list.append(wtp)
 
-
-    cost = st.number_input("Enter the total cost:", value=0.0)
-    key_index = 0
-
-    st.session_state.numbers_list = [st.number_input("Enter a number:", value=0.0, key=key_index)]
-
-    if st.button("Add new row"):
-        key_index += 1
-        st.session_state.numbers_list.append(st.number_input("Enter a number:", value=0.0, key=key_index))
-
-    # Create a list of numbers
-    #numbers = [number1, number2, number3]
-    #import pdb; pdb.set_trace()
     # Perform the calculation
-    calc_obj = FSCalculator(cost, st.session_state.numbers_list)
+    calc_obj = FSCalculator(cost, wtp_list)
 
     # Display the result
     st.write("Result:")
     st.write(calc_obj.rebalanced_pay)
 
-    # TODO: this code doesn't work. The whole adding new buttons dynamically isn't working. Try asking for num of rows needed and then set them?
-    # Then user id is implicitly set without asking for names which is a benefit! Since the row corresponds to the user
+    #TODO: add features including better / interpetable results outputting and notice if you covered or not!
+    # covered means everyone hit their wtp, gets a smiley face
+    # not covered gets a sad face
+
+
 if __name__ == "__main__":
     main()
