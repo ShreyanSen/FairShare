@@ -43,7 +43,9 @@ class FSCalculator:
     self.total_frenz = len(payment_vec)
     self.avg_cost = self.total_cost / self.total_frenz
     self.htp_delta = self.get_delta_pay()
-    self.rebalanced_pay = self.rebalance_costs() 
+    self.rebalanced_pay = self.rebalance_costs()
+    self.results = self.clean_results()
+    self.coverage() # compute coverage
     
     # check self.rebalanced_pay to see what each person owes based on their original happy to pay number
     # please ask each person to remember their happy to pay number so they can look up their adjusted cost
@@ -66,9 +68,32 @@ class FSCalculator:
       delta_pay_df.loc[delta_pay_df.delta_pay < 0,'rebalanced_delta'] = delta_pay_df.loc[delta_pay_df.delta_pay < 0,'delta_pay']*(total_surplus / total_need) 
 
     delta_pay_df['adjusted_cost'] = delta_pay_df['avg_cost'] + delta_pay_df['rebalanced_delta']
+
+    # compute coverage aka was the adjusted cost less than the willingness to pay
+    delta_pay_df['coverage'] = 0
+    delta_pay_df.loc[delta_pay_df.adjusted_cost <= delta_pay_df.happy_to_pay, 'coverage'] = 1
     return delta_pay_df
+    #surplus_share = self.delta_pay / total_need
+    #surplus_share
+
+  def coverage(self):
+    """
+    coverage means that we successfully covered everyone's willingness to pay; nobody is paying more than their wtp
+    """
+    if len(self.rebalanced_pay.loc[self.rebalanced_pay.coverage==0]) > 0:
+      self.coverage = False
+    else:
+      self.coverage = True
+
+    return
+
+  def clean_results(self):
+
+    cleaned_results = self.rebalanced_pay[['happy_to_pay', 'adjusted_cost']].rename(columns={'happy_to_pay':'Willing To Pay: ', 'adjusted_cost':'Now Pays: '})
+    cleaned_results.index = cleaned_results.index+1
+    cleaned_results = cleaned_results.rename_axis('Person Number: ')
+    return cleaned_results
 
 
-    surplus_share = self.delta_pay / total_need
-    surplus_share 
+
 
