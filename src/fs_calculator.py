@@ -1,3 +1,5 @@
+import pandas as pd
+
 class FSCalculator:
   """
   This class lets you split costs between your friends according to people's willingness to pay, 
