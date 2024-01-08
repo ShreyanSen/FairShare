@@ -1,4 +1,4 @@
-class DemDaemon:
+class FSCalculator:
   """
   This class lets you split costs between your friends according to people's willingness to pay, 
   particularly for friend groups where some friends would like to pay under the average cost 
