@@ -5,7 +5,7 @@ from src.fs_calculator import FSCalculator
 def main():
     st.title("FairShare Calculator")
 
-    st.write("**How This Works:** <br><br>"
+    st.write("**How This Works:** <br>"
              "Enter the total cost and the number of people splitting it below. Then for each person, "
              "enter the max amount they'd be willing to pay. This number can be above or below the average cost. "
              "If it's below, this person will be subsidized. If it's above, this person may pay more than average. " 
@@ -37,7 +37,7 @@ def main():
     else:
         st.write('Uh oh! Not everyone met their number that they are willing to pay. Back to the drawing board.')
 
-    st.write("<br> **How We Calculate Fair Costs:** <br><br>"
+    st.write("<br>**How We Calculate Fair Costs:** <br>"
              "There's many possible ways to think about fairness when it comes to splitting costs. "
              "This tool basically assumes you're splitting costs with your friends, so you only put a max amount "
              "that you're really willing to lose, knowing it's going towards your friends, and if you're asking "
@@ -53,7 +53,7 @@ def main():
              "and another is willing to pay 10 over average, then they will donate in a 9:1 ratio until they "
              "either run out of donor funds or cover the deficit. So if we have a total deficit of 20, then the "
              "first person will donate 18 and the second person will donate 2. So don't lowball OR highball your "
-             "willingness to pay, or you'll shake those ratios around."
+             "willingness to pay, or you'll shake those ratios around. "
              "What happens if the deficit isn't covered? Who receives what? We use the same logic we did on the "
              "donor side on the recipient side as well: we allocate funds according to the ratio of your delta "
              "to the average price. Since this tool is free, you can take a more detailed look at the math on github "
