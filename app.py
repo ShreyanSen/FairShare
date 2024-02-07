@@ -5,20 +5,31 @@ from src.fs_calculator import FSCalculator
 def main():
     st.title("FairShare Calculator")
 
-    st.write("**How This Works:** <br>"
-             "Enter the total cost and the number of people splitting it below. Then for each person, "
-             "enter the max amount they'd be willing to pay. This number can be above or below the average cost. "
-             "If it's below, this person will be subsidized. If it's above, this person may pay more than average. " 
-             "Scroll to the bottom of the page for more info on how fair costs are calculated. <br><br>"
+    st.write("**Using The FairShare Calculator:** <br><br>"
+             "This calculator lets you split costs among friends when different friends are "
+             "willing to pay different amounts for a shared cost. Based on the information "
+             "provided, we generate a suggested payment amount such that people who are willing "
+             "to pay more than the average cost subsidize people who want to pay below the average "
+             "cost. Enter the total cost and the number of people splitting it. You'll see "
+             "the average cost displayed. Each person enters the maximum amount they would "
+             "happily pay (what they feel is fair for them). That amount can be above or below the average "
+             "cost. The calculator allocates surplus from those willing to pay more to subsidize those "
+             "who want to pay less. "
+             "Those paying above average won't be given a price higher than their listed price, but those paying "
+             "below average may not achieve their listed price if there isn't enough surplus in the group. "
+             "These numbers are meant to be a starting point for a discussion on fair shares. "
+             "Try playing around with them and seeing what the calculator suggests. "
+             "Scroll to the bottom of the page for more info on how fair costs are calculated.  <br><br>"
+
              , unsafe_allow_html=True)
 
     cost = st.number_input("Enter the total cost:", value=0.0, step=1.0)
     num_users = st.number_input("Enter the number of people splitting this cost:", value=1, max_value=50)
-
-    st.write("Your average cost per person is: " + str(cost/num_users))
+    avg_cost = cost/num_users
+    st.write("Your average cost per person is: " + str(avg_cost))
     wtp_list = []
     for i in range(num_users):
-        wtp = st.number_input("Enter the maximum amount that person number " + str(i+1) + " is willing to pay", value=0.0, step=1.0, key=i)
+        wtp = st.number_input("Enter the maximum amount that person number " + str(i+1) + " is willing to pay", value=avg_cost, step=1.0, key=i)
         wtp_list.append(wtp)
 
     # Perform the calculation
@@ -37,13 +48,15 @@ def main():
     else:
         st.write('Uh oh! Not everyone met their number that they are willing to pay. Back to the drawing board.')
 
-    st.write("<br>**How We Calculate Fair Costs:** <br>"
+    calc_url = 'https://github.com/ShreyanSen/FairShare/blob/main/src/fs_calculator.py'
+    calc_url_text = 'find the math here '
+
+    st.write("<br>**How We Calculate Fair Costs:** <br><br>"
              "There's many possible ways to think about fairness when it comes to splitting costs. "
              "This tool basically assumes you're splitting costs with your friends, so you only put a max amount "
              "that you're really willing to lose, knowing it's going towards your friends, and if you're asking "
              "to receive you're doing it in good faith, putting a number that isn't below the amount you'd "
-             "really be ok paying. You can also just experiment with the tool until you find numbers that really "
-             "do feel right. The key is trust and communication! This tool is just an add on. <br> <br>"
+             "really be ok paying. <br> <br>"
              "The math behind the tool works like this. For each person willing to pay above average, "
              "we take all those potential dollars and put them into the giver pot. That's our potential surplus. "
              "We also total up a deficit by adding up the total amount people want to pay below average. "
@@ -59,7 +72,9 @@ def main():
              "to the average price. Since this tool is free, you can take a more detailed look at the math on github "
              "or just play around with the calculator until it makes intuitive sense. And of course, these calculator "
              "values are just ways to get the conversation started. You can always just use these numbers as a "
-             "starting point to find numbers that work for you and your friends! "
+             "starting point to find numbers that work for you and your friends! <br><br>"
+             "If you're interested, you can "
+             f'[{calc_url_text}]({calc_url})'
              ,  unsafe_allow_html=True)
 
 if __name__ == "__main__":
