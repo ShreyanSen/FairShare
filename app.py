@@ -6,10 +6,7 @@ def main():
     st.title("FairShare Calculator")
 
     st.write("This calculator lets you split costs among friends when different friends are "
-             "willing to pay different amounts for a shared cost. Each person enters the most they'd still be "
-             "happy to pay, and the calculator generates suggested payments for each person. You're encouraged "
-             "to play around with your happy to pay numbers to get a feel for how it works, and to use the suggested "
-             "payments as a baseline for a conversation about what feels fair. "
+             "willing to pay different amounts for a shared cost."
              "For more details on how the calculator "
              "works please scroll to the bottom of the page. "
             , unsafe_allow_html = True)
