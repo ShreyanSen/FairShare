@@ -6,7 +6,7 @@ def main():
     st.title("FairShare Calculator")
 
     st.write("This calculator lets you split costs among friends when different friends are "
-             "willing to pay different amounts for a shared cost."
+             "willing to pay different amounts for a shared cost. "
              "For more details on how the calculator "
              "works please scroll to the bottom of the page. "
             , unsafe_allow_html = True)
